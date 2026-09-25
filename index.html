@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>提出物 音声チェック</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -14,22 +21,31 @@
       margin: 0;
       padding: 30px;
       background: #f2f5f9;
+
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         "Noto Sans JP",
         sans-serif;
+
       color: #222;
     }
 
     .container {
       max-width: 700px;
       margin: 0 auto;
+
       background: white;
+
       border-radius: 24px;
+
       padding: 40px 32px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+
+      box-shadow:
+        0 8px 30px
+        rgba(0, 0, 0, 0.08);
+
       text-align: center;
     }
 
@@ -44,17 +60,31 @@
       margin-bottom: 30px;
     }
 
+
+    /* =====================================
+       マイクボタン
+    ===================================== */
+
     #micButton {
+
       width: 220px;
       height: 220px;
+
       border: none;
       border-radius: 50%;
+
       background: #1976d2;
       color: white;
+
       font-size: 30px;
       font-weight: bold;
+
       cursor: pointer;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+
+      box-shadow:
+        0 8px 18px
+        rgba(0, 0, 0, 0.18);
+
       transition: 0.2s;
     }
 
@@ -62,49 +92,94 @@
       transform: scale(1.03);
     }
 
+    #micButton:active {
+      transform: scale(0.97);
+    }
+
     #micButton.listening {
       background: #e53935;
     }
 
+
+    /* =====================================
+       音声認識結果
+    ===================================== */
+
     #status {
+
       margin-top: 28px;
+
       font-size: 18px;
       color: #555;
+
+      min-height: 28px;
     }
 
     .result-box {
+
       margin-top: 25px;
+
       padding: 25px;
+
       background: #eaf3ff;
+
       border-radius: 15px;
     }
 
     .result-title {
+
       font-size: 16px;
+
       margin-bottom: 12px;
     }
 
     #result {
+
       font-size: 27px;
+
       font-weight: bold;
+
       min-height: 40px;
+
+      word-break: break-word;
     }
 
+
+    /* =====================================
+       エラー
+    ===================================== */
+
     #error {
+
       display: none;
+
       white-space: pre-wrap;
+
       margin-top: 20px;
+
       padding: 15px;
+
       border-radius: 12px;
+
       background: #ffebee;
+
       color: #c62828;
     }
 
+
     hr {
+
       border: none;
+
       border-top: 1px solid #ddd;
+
       margin: 40px 0;
     }
+
+
+    /* =====================================
+       Apps Script接続テスト
+    ===================================== */
 
     .connection-area {
       padding: 5px;
@@ -115,49 +190,84 @@
     }
 
     .connection-description {
+
       color: #666;
+
       line-height: 1.7;
     }
 
     #connectionButton {
+
       margin-top: 15px;
+
       padding: 16px 28px;
+
       border: none;
+
       border-radius: 12px;
+
       background: #2e7d32;
+
       color: white;
+
       font-size: 19px;
+
       font-weight: bold;
+
       cursor: pointer;
     }
 
+    #connectionButton:hover {
+      opacity: 0.9;
+    }
+
     #connectionButton:disabled {
+
       opacity: 0.6;
+
       cursor: default;
     }
 
     #connectionResult {
-      margin-top: 20px;
-      padding: 18px;
-      border-radius: 12px;
-      background: #f5f5f5;
-      white-space: pre-wrap;
-      text-align: left;
+
       display: none;
+
+      margin-top: 20px;
+
+      padding: 18px;
+
+      border-radius: 12px;
+
+      background: #f5f5f5;
+
+      white-space: pre-wrap;
+
+      text-align: left;
+
       overflow-wrap: anywhere;
     }
 
     .success {
+
       background: #e8f5e9 !important;
+
       color: #1b5e20;
     }
 
     .failure {
+
       background: #ffebee !important;
+
       color: #b71c1c;
     }
 
+
+    /* =====================================
+       スマートフォン
+    ===================================== */
+
     @media (max-width: 600px) {
+
       body {
         padding: 15px;
       }
@@ -171,74 +281,129 @@
       }
 
       #micButton {
+
         width: 180px;
         height: 180px;
+
         font-size: 26px;
       }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
 <div class="container">
 
-  <h1>🎤 音声認識テスト</h1>
+
+  <!-- =====================================
+       音声認識
+  ====================================== -->
+
+  <h1>
+    🎤 音声認識テスト
+  </h1>
 
   <div class="subtitle">
     出席番号を話してください
   </div>
 
-  <button id="micButton" onclick="startRecognition()">
-    🎤<br>話す
+
+  <button
+    id="micButton"
+    type="button"
+    onclick="startRecognition()"
+  >
+
+    🎤<br>
+    話す
+
   </button>
+
 
   <div id="status">
     ボタンを押してください
   </div>
 
+
   <div class="result-box">
-    <div class="result-title">認識結果</div>
-    <div id="result">---</div>
+
+    <div class="result-title">
+      認識結果
+    </div>
+
+    <div id="result">
+      ---
+    </div>
+
   </div>
+
 
   <div id="error"></div>
 
 
+
+  <!-- =====================================
+       区切り線
+  ====================================== -->
+
   <hr>
 
 
+
+  <!-- =====================================
+       Apps Script接続テスト
+  ====================================== -->
+
   <div class="connection-area">
 
-    <h2>🔗 Apps Script 接続テスト</h2>
+    <h2>
+      🔗 Apps Script 接続テスト
+    </h2>
+
 
     <div class="connection-description">
+
       GitHub Pages から Apps Script に<br>
+
       テストデータを送信します。
+
     </div>
 
-    <button id="connectionButton" onclick="testConnection()">
+
+    <button
+      id="connectionButton"
+      type="button"
+      onclick="testConnection()"
+    >
+
       🔗 接続テスト
+
     </button>
+
 
     <div id="connectionResult"></div>
 
   </div>
 
+
 </div>
+
 
 
 <script>
 
   // =========================================================
-  // ★ここだけ変更してください
-  // Apps Script の「ウェブアプリURL」を貼り付けます
-  // 必ず最後が /exec のURLを使ってください
+  // Apps Script WebアプリURL
   // =========================================================
 
   const GAS_URL =
-    "const GAS_URL =
-  "https://script.google.com/a/macros/tuhw-h.ed.jp/s/AKfycbwj1wz1TflZapmLS3BplXIH_ZQsCZ3P78SS0erMoJJYdPJM96JTfA4_Izn8DH6zM3T1/exec";
+    "https://script.google.com/a/macros/tuhw-h.ed.jp/s/AKfycbwj1wz1TflZapmLS3BplXIH_ZQsCZ3P78SS0erMoJJYdPJM96JTfA4_Izn8DH6zM3T1/exec";
+
 
 
   // =========================================================
@@ -247,105 +412,219 @@
 
   let recognition = null;
 
+
   function startRecognition() {
+
+    hideError();
+
 
     const SpeechRecognition =
       window.SpeechRecognition ||
       window.webkitSpeechRecognition;
-
-    const errorBox = document.getElementById("error");
-
-    errorBox.style.display = "none";
-    errorBox.textContent = "";
 
 
     if (!SpeechRecognition) {
 
       showError(
         "このブラウザは音声認識に対応していません。\n" +
-        "Google Chromeで試してください。"
+        "Google Chromeで開いてください。"
       );
 
       return;
     }
 
 
-    recognition = new SpeechRecognition();
+    try {
 
-    recognition.lang = "ja-JP";
-    recognition.interimResults = false;
-    recognition.continuous = false;
+      recognition =
+        new SpeechRecognition();
 
 
-    recognition.onstart = function() {
+      recognition.lang =
+        "ja-JP";
+
+
+      recognition.interimResults =
+        false;
+
+
+      recognition.continuous =
+        false;
+
 
       const button =
-        document.getElementById("micButton");
-
-      button.classList.add("listening");
-
-      button.innerHTML =
-        "🔴<br>聞いています";
-
-      document.getElementById("status").textContent =
-        "話してください…";
-    };
+        document.getElementById(
+          "micButton"
+        );
 
 
-    recognition.onresult = function(event) {
-
-      const transcript =
-        event.results[0][0].transcript;
-
-      document.getElementById("result").textContent =
-        transcript;
-
-      document.getElementById("status").textContent =
-        "認識できました！";
-    };
+      const status =
+        document.getElementById(
+          "status"
+        );
 
 
-    recognition.onerror = function(event) {
+      recognition.onstart =
+        function () {
 
-      console.log(
-        "音声認識エラー:",
-        event.error
+          button
+            .classList
+            .add(
+              "listening"
+            );
+
+
+          button.innerHTML =
+            "🔴<br>聞いています";
+
+
+          status.textContent =
+            "話してください…";
+        };
+
+
+      recognition.onresult =
+        function (event) {
+
+          const transcript =
+            event
+              .results[0][0]
+              .transcript;
+
+
+          document
+            .getElementById(
+              "result"
+            )
+            .textContent =
+              transcript;
+
+
+          status.textContent =
+            "認識できました！";
+        };
+
+
+      recognition.onerror =
+        function (event) {
+
+          console.error(
+            "音声認識エラー:",
+            event.error
+          );
+
+
+          let message =
+            "音声認識エラー：" +
+            event.error;
+
+
+          if (
+            event.error ===
+            "not-allowed"
+          ) {
+
+            message =
+              "マイクの使用が許可されていません。\n" +
+              "Chromeのマイク設定を確認してください。";
+
+          }
+
+
+          if (
+            event.error ===
+            "no-speech"
+          ) {
+
+            message =
+              "音声を認識できませんでした。\n" +
+              "もう一度話してください。";
+
+          }
+
+
+          showError(
+            message
+          );
+        };
+
+
+      recognition.onend =
+        function () {
+
+          button
+            .classList
+            .remove(
+              "listening"
+            );
+
+
+          button.innerHTML =
+            "🎤<br>話す";
+        };
+
+
+      recognition.start();
+
+
+    } catch (error) {
+
+      console.error(
+        error
       );
+
 
       showError(
-        "音声認識エラー\n\n" +
-        "エラー内容：" +
-        event.error
+        "音声認識を開始できませんでした。\n\n" +
+        error.message
       );
-    };
 
+    }
 
-    recognition.onend = function() {
-
-      const button =
-        document.getElementById("micButton");
-
-      button.classList.remove("listening");
-
-      button.innerHTML =
-        "🎤<br>話す";
-    };
-
-
-    recognition.start();
   }
 
+
+
+  // =========================================================
+  // エラー表示
+  // =========================================================
 
   function showError(message) {
 
     const errorBox =
-      document.getElementById("error");
+      document.getElementById(
+        "error"
+      );
 
-    errorBox.textContent = message;
+
+    errorBox.textContent =
+      message;
+
 
     errorBox.style.display =
       "block";
+
   }
+
+
+
+  function hideError() {
+
+    const errorBox =
+      document.getElementById(
+        "error"
+      );
+
+
+    errorBox.textContent =
+      "";
+
+
+    errorBox.style.display =
+      "none";
+
+  }
+
 
 
   // =========================================================
@@ -355,39 +634,32 @@
   async function testConnection() {
 
     const button =
-      document.getElementById("connectionButton");
+      document.getElementById(
+        "connectionButton"
+      );
+
 
     const resultBox =
-      document.getElementById("connectionResult");
+      document.getElementById(
+        "connectionResult"
+      );
 
 
-    if (
-      !GAS_URL ||
-      GAS_URL.includes("ここに")
-    ) {
+    button.disabled =
+      true;
 
-      resultBox.style.display =
-        "block";
-
-      resultBox.className =
-        "failure";
-
-      resultBox.textContent =
-        "Apps ScriptのウェブアプリURLが設定されていません。";
-
-      return;
-    }
-
-
-    button.disabled = true;
 
     button.textContent =
       "接続中…";
 
+
     resultBox.style.display =
       "block";
 
-    resultBox.className = "";
+
+    resultBox.className =
+      "";
+
 
     resultBox.textContent =
       "Apps Scriptへ送信しています…";
@@ -395,71 +667,106 @@
 
     try {
 
-      // -----------------------------------------------------
-      // text/plain にすることで、
-      // 不要なCORS preflightを避けて送信テストします
-      // -----------------------------------------------------
+      const sendData = {
+
+        action:
+          "connectionTest",
+
+        message:
+          "GitHub Pagesからこんにちは！",
+
+        numbers:
+          [1, 2, 3]
+
+      };
+
+
+      console.log(
+        "送信データ:",
+        sendData
+      );
+
 
       const response =
-        await fetch(GAS_URL, {
+        await fetch(
+          GAS_URL,
+          {
 
-          method: "POST",
+            method:
+              "POST",
 
-          headers: {
-            "Content-Type":
-              "text/plain;charset=utf-8"
-          },
+            headers: {
 
-          body: JSON.stringify({
+              "Content-Type":
+                "text/plain;charset=utf-8"
 
-            action:
-              "connectionTest",
+            },
 
-            message:
-              "GitHub Pagesからこんにちは！",
+            body:
+              JSON.stringify(
+                sendData
+              )
 
-            numbers:
-              [1, 2, 3]
+          }
+        );
 
-          })
 
-        });
+      console.log(
+        "HTTP status:",
+        response.status
+      );
 
 
       const text =
         await response.text();
 
 
-      let data;
+      console.log(
+        "Apps Script応答:",
+        text
+      );
+
+
+      let data = null;
+
 
       try {
 
         data =
-          JSON.parse(text);
+          JSON.parse(
+            text
+          );
 
-      } catch (e) {
+      } catch (error) {
 
-        data = null;
+        console.log(
+          "JSON変換できませんでした"
+        );
+
       }
 
 
       if (
         response.ok &&
         data &&
-        data.success
+        data.success === true
       ) {
 
         resultBox.className =
           "success";
 
+
         resultBox.textContent =
           "🎉 接続成功！\n\n" +
+
           "GitHub Pages\n" +
           "　↓\n" +
           "Apps Script\n" +
           "　↓\n" +
           "通信できました！\n\n" +
+
           "Apps Scriptからの返事：\n" +
+
           data.message;
 
       } else {
@@ -467,38 +774,75 @@
         resultBox.className =
           "failure";
 
+
         resultBox.textContent =
-          "Apps Scriptから応答はありましたが、" +
-          "期待したJSONではありません。\n\n" +
+          "Apps Scriptから応答はありましたが、\n" +
+          "期待した結果ではありません。\n\n" +
+
           "HTTP：" +
           response.status +
           "\n\n" +
+
           text;
+
       }
 
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "接続エラー:",
+        error
+      );
+
 
       resultBox.className =
         "failure";
 
+
       resultBox.textContent =
-        "⚠️ ブラウザ側で通信結果を読み取れませんでした。\n\n" +
+        "⚠️ 接続テストでエラーが発生しました。\n\n" +
+
+        "エラー内容：\n" +
+
         error.message +
+
         "\n\n" +
-        "※ Apps Script側にデータ自体が届いている可能性もあります。";
+
+        "※ Apps Scriptまで送信できていても、" +
+        "ブラウザ側で返事を読み取れない場合があります。";
+
     }
 
 
-    button.disabled = false;
+    button.disabled =
+      false;
+
 
     button.textContent =
       "🔗 接続テスト";
+
   }
+
+
+  // =========================================================
+  // JavaScriptが正常に読み込まれたことを確認
+  // =========================================================
+
+  window.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+      console.log(
+        "提出物音声チェック：JavaScript読み込み成功"
+      );
+
+    }
+  );
 
 </script>
 
+
 </body>
+
 </html>
