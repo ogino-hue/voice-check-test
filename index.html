@@ -20,6 +20,7 @@
     body {
       margin: 0;
       padding: 24px;
+
       background: #f2f5f9;
 
       font-family:
@@ -42,7 +43,7 @@
 
       border-radius: 24px;
 
-      padding: 36px 28px;
+      padding: 34px 28px;
 
       box-shadow:
         0 8px 28px
@@ -52,24 +53,68 @@
     }
 
     h1 {
-      margin: 0 0 10px;
+      margin: 0 0 12px;
 
       font-size: 30px;
     }
 
     .subtitle {
-      margin-bottom: 28px;
-
       color: #666;
 
-      font-size: 17px;
+      font-size: 16px;
+
       line-height: 1.7;
+
+      margin-bottom: 22px;
     }
 
 
-    /* =====================================
+    /* ==========================
+       選択中の提出物
+    ========================== */
+
+    .target-box {
+      margin-bottom: 28px;
+
+      padding: 18px;
+
+      border-radius: 15px;
+
+      background: #eef5ff;
+
+      text-align: left;
+    }
+
+    .target-label {
+      font-size: 13px;
+
+      color: #666;
+
+      margin-bottom: 4px;
+    }
+
+    .target-sheet {
+      font-size: 16px;
+
+      color: #555;
+
+      margin-bottom: 8px;
+    }
+
+    .target-assignment {
+      font-size: 22px;
+
+      font-weight: bold;
+
+      color: #1565c0;
+
+      word-break: break-word;
+    }
+
+
+    /* ==========================
        マイク
-    ===================================== */
+    ========================== */
 
     #micButton {
       width: 210px;
@@ -79,6 +124,7 @@
       border-radius: 50%;
 
       background: #1976d2;
+
       color: white;
 
       font-size: 28px;
@@ -106,41 +152,37 @@
     }
 
 
-    /* =====================================
+    /* ==========================
        状態表示
-    ===================================== */
+    ========================== */
 
     #status {
       margin-top: 24px;
 
       min-height: 28px;
 
-      font-size: 17px;
-
       color: #555;
+
+      font-size: 17px;
     }
 
 
-    /* =====================================
+    /* ==========================
        認識結果
-    ===================================== */
+    ========================== */
 
     .result-area {
-      margin-top: 28px;
+      margin-top: 26px;
 
-      padding: 22px;
-
-      background: #eef5ff;
+      padding: 20px;
 
       border-radius: 16px;
 
-      text-align: left;
+      background: #eef5ff;
     }
 
     .result-title {
       margin-bottom: 10px;
-
-      text-align: center;
 
       font-size: 14px;
 
@@ -150,11 +192,11 @@
     #recognizedText {
       width: 100%;
 
-      min-height: 80px;
+      min-height: 82px;
 
       padding: 14px;
 
-      border: 1px solid #c5d8f2;
+      border: 1px solid #bdd1ea;
 
       border-radius: 10px;
 
@@ -171,17 +213,15 @@
     .hint {
       margin-top: 8px;
 
-      color: #777;
-
       font-size: 13px;
 
-      text-align: center;
+      color: #777;
     }
 
 
-    /* =====================================
-       Apps Scriptへ進む
-    ===================================== */
+    /* ==========================
+       ボタン
+    ========================== */
 
     #goButton {
       width: 100%;
@@ -194,6 +234,7 @@
       border-radius: 14px;
 
       background: #2e7d32;
+
       color: white;
 
       font-size: 20px;
@@ -202,20 +243,11 @@
       cursor: pointer;
     }
 
-    #goButton:hover {
-      opacity: 0.92;
-    }
-
     #goButton:disabled {
       background: #bdbdbd;
 
       cursor: default;
     }
-
-
-    /* =====================================
-       やり直し
-    ===================================== */
 
     #retryButton {
       width: 100%;
@@ -228,6 +260,7 @@
       border-radius: 12px;
 
       background: #eeeeee;
+
       color: #444;
 
       font-size: 16px;
@@ -236,9 +269,9 @@
     }
 
 
-    /* =====================================
+    /* ==========================
        エラー
-    ===================================== */
+    ========================== */
 
     #error {
       display: none;
@@ -287,6 +320,7 @@
     }
 
   </style>
+
 </head>
 
 
@@ -296,9 +330,11 @@
 
   <div class="card">
 
+
     <h1>
       🎤 提出物 音声チェック
     </h1>
+
 
     <div class="subtitle">
       提出した生徒の出席番号を<br>
@@ -306,24 +342,70 @@
     </div>
 
 
-    <!-- マイク -->
+
+    <!-- ==========================
+         選択中の提出物
+    =========================== -->
+
+    <div
+      id="targetBox"
+      class="target-box"
+    >
+
+      <div class="target-label">
+        現在のシート
+      </div>
+
+      <div
+        id="sheetName"
+        class="target-sheet"
+      >
+        読み込み中...
+      </div>
+
+
+      <div class="target-label">
+        選択中の提出物
+      </div>
+
+      <div
+        id="assignmentName"
+        class="target-assignment"
+      >
+        読み込み中...
+      </div>
+
+    </div>
+
+
+
+    <!-- ==========================
+         マイク
+    =========================== -->
 
     <button
       id="micButton"
       type="button"
       onclick="startRecognition()"
     >
+
       🎤<br>
       話す
+
     </button>
 
 
     <div id="status">
+
       例：1番、2番、3番、4番、5番
+
     </div>
 
 
-    <!-- 認識結果 -->
+
+    <!-- ==========================
+         認識結果
+    =========================== -->
 
     <div class="result-area">
 
@@ -331,11 +413,13 @@
         認識結果
       </div>
 
+
       <textarea
         id="recognizedText"
         placeholder="ここに認識結果が表示されます"
         oninput="updateGoButton()"
       ></textarea>
+
 
       <div class="hint">
         認識が違っていた場合は、ここで直接修正できます。
@@ -344,7 +428,10 @@
     </div>
 
 
-    <!-- Apps Scriptへ -->
+
+    <!-- ==========================
+         Apps Scriptへ戻る
+    =========================== -->
 
     <button
       id="goButton"
@@ -352,7 +439,9 @@
       onclick="goToAppsScript()"
       disabled
     >
-      📋 提出物チェックへ進む
+
+      👀 生徒を確認する
+
     </button>
 
 
@@ -361,11 +450,14 @@
       type="button"
       onclick="retryRecognition()"
     >
+
       ↻ もう一度話す
+
     </button>
 
 
     <div id="error"></div>
+
 
   </div>
 
@@ -375,20 +467,119 @@
 
 <script>
 
-  // =========================================================
-  // Apps Script WebアプリURL
-  // =========================================================
+  // ======================================================
+  // スプレッドシートから渡された情報
+  // ======================================================
 
-  const GAS_URL =
-    "https://script.google.com/a/macros/tuhw-h.ed.jp/s/AKfycbwj1wz1TflZapmLS3BplXIH_ZQsCZ3P78SS0erMoJJYdPJM96JTfA4_Izn8DH6zM3T1/exec";
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
 
-  // =========================================================
+  const spreadsheetId =
+    params.get(
+      'spreadsheetId'
+    ) || '';
+
+
+  const sheetId =
+    params.get(
+      'sheetId'
+    ) || '';
+
+
+  const column =
+    params.get(
+      'column'
+    ) || '';
+
+
+  const assignmentName =
+    params.get(
+      'assignmentName'
+    ) || '';
+
+
+  const sheetName =
+    params.get(
+      'sheetName'
+    ) || '';
+
+
+  const webAppUrl =
+    params.get(
+      'webAppUrl'
+    ) || '';
+
+
+
+  // ======================================================
   // 音声認識
-  // =========================================================
+  // ======================================================
 
   let recognition = null;
 
+
+
+  // ======================================================
+  // 起動時
+  // ======================================================
+
+  window.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+      document
+        .getElementById(
+          'sheetName'
+        )
+        .textContent =
+          sheetName ||
+          'シート情報なし';
+
+
+      document
+        .getElementById(
+          'assignmentName'
+        )
+        .textContent =
+          assignmentName ||
+          '提出物情報なし';
+
+
+      updateGoButton();
+
+
+      // --------------------------------------
+      // スプレッドシートから
+      // 正しく開かれたかチェック
+      // --------------------------------------
+
+      if (
+        !spreadsheetId ||
+        !sheetId ||
+        !column ||
+        !webAppUrl
+      ) {
+
+        showError(
+          'このページは、提出物チェック用スプレッドシートから開いてください。\n\n' +
+          'D2、E2、F2…の提出物名をクリックし、\n' +
+          '「提出物管理 → 🎤 選択中の提出物を音声入力」\n' +
+          'から開いてください。'
+        );
+
+      }
+
+    }
+  );
+
+
+
+  // ======================================================
+  // 音声認識開始
+  // ======================================================
 
   function startRecognition() {
 
@@ -403,8 +594,8 @@
     if (!SpeechRecognition) {
 
       showError(
-        "このブラウザでは音声認識を利用できません。\n" +
-        "Google Chromeで開いてください。"
+        'このブラウザでは音声認識を利用できません。\n' +
+        'Google Chromeで開いてください。'
       );
 
       return;
@@ -418,7 +609,7 @@
 
 
       recognition.lang =
-        "ja-JP";
+        'ja-JP';
 
 
       recognition.interimResults =
@@ -430,15 +621,17 @@
 
 
       const button =
-        document.getElementById(
-          "micButton"
-        );
+        document
+          .getElementById(
+            'micButton'
+          );
 
 
       const status =
-        document.getElementById(
-          "status"
-        );
+        document
+          .getElementById(
+            'status'
+          );
 
 
       recognition.onstart =
@@ -447,16 +640,16 @@
           button
             .classList
             .add(
-              "listening"
+              'listening'
             );
 
 
           button.innerHTML =
-            "🔴<br>聞いています";
+            '🔴<br>聞いています';
 
 
           status.textContent =
-            "番号を話してください…";
+            '番号を話してください…';
 
         };
 
@@ -472,14 +665,14 @@
 
           document
             .getElementById(
-              "recognizedText"
+              'recognizedText'
             )
             .value =
               text;
 
 
           status.textContent =
-            "認識できました！";
+            '認識できました！';
 
 
           updateGoButton();
@@ -491,37 +684,37 @@
         function (event) {
 
           console.error(
-            "音声認識エラー:",
+            '音声認識エラー:',
             event.error
           );
 
 
           let message =
-            "音声認識に失敗しました。\n" +
-            "エラー：" +
+            '音声認識に失敗しました。\n' +
+            'エラー：' +
             event.error;
 
 
           if (
             event.error ===
-            "not-allowed"
+            'not-allowed'
           ) {
 
             message =
-              "マイクの使用が許可されていません。\n" +
-              "Chromeの設定でマイクを許可してください。";
+              'マイクの使用が許可されていません。\n' +
+              'Chromeの設定でマイクを許可してください。';
 
           }
 
 
           if (
             event.error ===
-            "no-speech"
+            'no-speech'
           ) {
 
             message =
-              "音声を認識できませんでした。\n" +
-              "もう一度話してください。";
+              '音声を認識できませんでした。\n' +
+              'もう一度話してください。';
 
           }
 
@@ -539,12 +732,12 @@
           button
             .classList
             .remove(
-              "listening"
+              'listening'
             );
 
 
           button.innerHTML =
-            "🎤<br>話す";
+            '🎤<br>話す';
 
         };
 
@@ -560,7 +753,7 @@
 
 
       showError(
-        "音声認識を開始できませんでした。\n\n" +
+        '音声認識を開始できませんでした。\n\n' +
         error.message
       );
 
@@ -570,95 +763,165 @@
 
 
 
-  // =========================================================
-  // 「提出物チェックへ進む」ボタン
-  // =========================================================
+  // ======================================================
+  // 生徒確認ボタン
+  // ======================================================
 
   function updateGoButton() {
 
     const text =
       document
         .getElementById(
-          "recognizedText"
+          'recognizedText'
         )
         .value
         .trim();
 
 
+    const ready =
+      text !== '' &&
+      spreadsheetId !== '' &&
+      sheetId !== '' &&
+      column !== '' &&
+      webAppUrl !== '';
+
+
     document
       .getElementById(
-        "goButton"
+        'goButton'
       )
       .disabled =
-        text === "";
+        !ready;
 
   }
 
 
 
-  // =========================================================
-  // Apps Scriptへ移動
-  // =========================================================
+  // ======================================================
+  // Apps Scriptへ戻る
+  // ======================================================
 
   function goToAppsScript() {
 
     hideError();
 
 
-    const text =
+    const spokenText =
       document
         .getElementById(
-          "recognizedText"
+          'recognizedText'
         )
         .value
         .trim();
 
 
-    if (!text) {
+    if (!spokenText) {
 
       showError(
-        "出席番号が入力されていません。"
+        '出席番号が入力されていません。'
       );
 
       return;
     }
 
 
-    const url =
-      GAS_URL +
-      "?spoken=" +
-      encodeURIComponent(
-        text
+    if (
+      !spreadsheetId ||
+      !sheetId ||
+      !column ||
+      !webAppUrl
+    ) {
+
+      showError(
+        'スプレッドシートの情報がありません。\n' +
+        'スプレッドシートからもう一度開いてください。'
+      );
+
+      return;
+    }
+
+
+    const destination =
+      new URL(
+        webAppUrl
+      );
+
+
+    destination
+      .searchParams
+      .set(
+        'spreadsheetId',
+        spreadsheetId
+      );
+
+
+    destination
+      .searchParams
+      .set(
+        'sheetId',
+        sheetId
+      );
+
+
+    destination
+      .searchParams
+      .set(
+        'column',
+        column
+      );
+
+
+    destination
+      .searchParams
+      .set(
+        'assignmentName',
+        assignmentName
+      );
+
+
+    destination
+      .searchParams
+      .set(
+        'sheetName',
+        sheetName
+      );
+
+
+    destination
+      .searchParams
+      .set(
+        'spoken',
+        spokenText
       );
 
 
     window.location.href =
-      url;
+      destination.toString();
 
   }
 
 
 
-  // =========================================================
+  // ======================================================
   // やり直し
-  // =========================================================
+  // ======================================================
 
   function retryRecognition() {
 
     document
       .getElementById(
-        "recognizedText"
+        'recognizedText'
       )
       .value =
-        "";
+        '';
 
 
     document
       .getElementById(
-        "status"
+        'status'
       )
       .textContent =
-        "例：1番、2番、3番、4番、5番";
+        '例：1番、2番、3番、4番、5番';
 
 
     updateGoButton();
@@ -673,16 +936,17 @@
 
 
 
-  // =========================================================
+  // ======================================================
   // エラー
-  // =========================================================
+  // ======================================================
 
   function showError(message) {
 
     const error =
-      document.getElementById(
-        "error"
-      );
+      document
+        .getElementById(
+          'error'
+        );
 
 
     error.textContent =
@@ -690,7 +954,7 @@
 
 
     error.style.display =
-      "block";
+      'block';
 
   }
 
@@ -698,38 +962,20 @@
   function hideError() {
 
     const error =
-      document.getElementById(
-        "error"
-      );
+      document
+        .getElementById(
+          'error'
+        );
 
 
     error.textContent =
-      "";
+      '';
 
 
     error.style.display =
-      "none";
+      'none';
 
   }
-
-
-
-  // =========================================================
-  // 起動確認
-  // =========================================================
-
-  window.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-      console.log(
-        "提出物音声チェック 起動成功"
-      );
-
-      updateGoButton();
-
-    }
-  );
 
 </script>
 
