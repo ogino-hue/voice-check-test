@@ -19,7 +19,7 @@
 
     body {
       margin: 0;
-      padding: 30px;
+      padding: 24px;
       background: #f2f5f9;
 
       font-family:
@@ -33,42 +33,47 @@
     }
 
     .container {
-      max-width: 700px;
+      max-width: 680px;
       margin: 0 auto;
+    }
 
+    .card {
       background: white;
 
       border-radius: 24px;
 
-      padding: 40px 32px;
+      padding: 36px 28px;
 
       box-shadow:
-        0 8px 30px
+        0 8px 28px
         rgba(0, 0, 0, 0.08);
 
       text-align: center;
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 32px;
+      margin: 0 0 10px;
+
+      font-size: 30px;
     }
 
     .subtitle {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
+
+      color: #666;
+
+      font-size: 17px;
+      line-height: 1.7;
     }
 
 
     /* =====================================
-       マイクボタン
+       マイク
     ===================================== */
 
     #micButton {
-
-      width: 220px;
-      height: 220px;
+      width: 210px;
+      height: 210px;
 
       border: none;
       border-radius: 50%;
@@ -76,14 +81,14 @@
       background: #1976d2;
       color: white;
 
-      font-size: 30px;
+      font-size: 28px;
       font-weight: bold;
 
       cursor: pointer;
 
       box-shadow:
-        0 8px 18px
-        rgba(0, 0, 0, 0.18);
+        0 8px 20px
+        rgba(0, 0, 0, 0.20);
 
       transition: 0.2s;
     }
@@ -97,51 +102,137 @@
     }
 
     #micButton.listening {
-      background: #e53935;
+      background: #d32f2f;
     }
 
 
     /* =====================================
-       音声認識結果
+       状態表示
     ===================================== */
 
     #status {
-
-      margin-top: 28px;
-
-      font-size: 18px;
-      color: #555;
+      margin-top: 24px;
 
       min-height: 28px;
+
+      font-size: 17px;
+
+      color: #555;
     }
 
-    .result-box {
 
-      margin-top: 25px;
+    /* =====================================
+       認識結果
+    ===================================== */
 
-      padding: 25px;
+    .result-area {
+      margin-top: 28px;
 
-      background: #eaf3ff;
+      padding: 22px;
 
-      border-radius: 15px;
+      background: #eef5ff;
+
+      border-radius: 16px;
+
+      text-align: left;
     }
 
     .result-title {
+      margin-bottom: 10px;
+
+      text-align: center;
+
+      font-size: 14px;
+
+      color: #666;
+    }
+
+    #recognizedText {
+      width: 100%;
+
+      min-height: 80px;
+
+      padding: 14px;
+
+      border: 1px solid #c5d8f2;
+
+      border-radius: 10px;
+
+      background: white;
+
+      font-size: 22px;
+      font-weight: bold;
+
+      text-align: center;
+
+      resize: vertical;
+    }
+
+    .hint {
+      margin-top: 8px;
+
+      color: #777;
+
+      font-size: 13px;
+
+      text-align: center;
+    }
+
+
+    /* =====================================
+       Apps Scriptへ進む
+    ===================================== */
+
+    #goButton {
+      width: 100%;
+
+      margin-top: 24px;
+
+      padding: 18px;
+
+      border: none;
+      border-radius: 14px;
+
+      background: #2e7d32;
+      color: white;
+
+      font-size: 20px;
+      font-weight: bold;
+
+      cursor: pointer;
+    }
+
+    #goButton:hover {
+      opacity: 0.92;
+    }
+
+    #goButton:disabled {
+      background: #bdbdbd;
+
+      cursor: default;
+    }
+
+
+    /* =====================================
+       やり直し
+    ===================================== */
+
+    #retryButton {
+      width: 100%;
+
+      margin-top: 10px;
+
+      padding: 14px;
+
+      border: none;
+      border-radius: 12px;
+
+      background: #eeeeee;
+      color: #444;
 
       font-size: 16px;
 
-      margin-bottom: 12px;
-    }
-
-    #result {
-
-      font-size: 27px;
-
-      font-weight: bold;
-
-      min-height: 40px;
-
-      word-break: break-word;
+      cursor: pointer;
     }
 
 
@@ -150,10 +241,7 @@
     ===================================== */
 
     #error {
-
       display: none;
-
-      white-space: pre-wrap;
 
       margin-top: 20px;
 
@@ -163,135 +251,42 @@
 
       background: #ffebee;
 
-      color: #c62828;
-    }
-
-
-    hr {
-
-      border: none;
-
-      border-top: 1px solid #ddd;
-
-      margin: 40px 0;
-    }
-
-
-    /* =====================================
-       Apps Script接続テスト
-    ===================================== */
-
-    .connection-area {
-      padding: 5px;
-    }
-
-    .connection-area h2 {
-      margin-bottom: 10px;
-    }
-
-    .connection-description {
-
-      color: #666;
-
-      line-height: 1.7;
-    }
-
-    #connectionButton {
-
-      margin-top: 15px;
-
-      padding: 16px 28px;
-
-      border: none;
-
-      border-radius: 12px;
-
-      background: #2e7d32;
-
-      color: white;
-
-      font-size: 19px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-    }
-
-    #connectionButton:hover {
-      opacity: 0.9;
-    }
-
-    #connectionButton:disabled {
-
-      opacity: 0.6;
-
-      cursor: default;
-    }
-
-    #connectionResult {
-
-      display: none;
-
-      margin-top: 20px;
-
-      padding: 18px;
-
-      border-radius: 12px;
-
-      background: #f5f5f5;
+      color: #b71c1c;
 
       white-space: pre-wrap;
 
       text-align: left;
-
-      overflow-wrap: anywhere;
     }
 
-    .success {
-
-      background: #e8f5e9 !important;
-
-      color: #1b5e20;
-    }
-
-    .failure {
-
-      background: #ffebee !important;
-
-      color: #b71c1c;
-    }
-
-
-    /* =====================================
-       スマートフォン
-    ===================================== */
 
     @media (max-width: 600px) {
 
       body {
-        padding: 15px;
+        padding: 14px;
       }
 
-      .container {
-        padding: 30px 18px;
+      .card {
+        padding: 28px 18px;
       }
 
       h1 {
-        font-size: 26px;
+        font-size: 25px;
       }
 
       #micButton {
-
         width: 180px;
         height: 180px;
 
-        font-size: 26px;
+        font-size: 24px;
+      }
+
+      #recognizedText {
+        font-size: 20px;
       }
 
     }
 
   </style>
-
 </head>
 
 
@@ -299,97 +294,80 @@
 
 <div class="container">
 
+  <div class="card">
 
-  <!-- =====================================
-       音声認識
-  ====================================== -->
+    <h1>
+      🎤 提出物 音声チェック
+    </h1>
 
-  <h1>
-    🎤 音声認識テスト
-  </h1>
-
-  <div class="subtitle">
-    出席番号を話してください
-  </div>
-
-
-  <button
-    id="micButton"
-    type="button"
-    onclick="startRecognition()"
-  >
-
-    🎤<br>
-    話す
-
-  </button>
-
-
-  <div id="status">
-    ボタンを押してください
-  </div>
-
-
-  <div class="result-box">
-
-    <div class="result-title">
-      認識結果
+    <div class="subtitle">
+      提出した生徒の出席番号を<br>
+      続けて話してください
     </div>
 
-    <div id="result">
-      ---
-    </div>
 
-  </div>
-
-
-  <div id="error"></div>
-
-
-
-  <!-- =====================================
-       区切り線
-  ====================================== -->
-
-  <hr>
-
-
-
-  <!-- =====================================
-       Apps Script接続テスト
-  ====================================== -->
-
-  <div class="connection-area">
-
-    <h2>
-      🔗 Apps Script 接続テスト
-    </h2>
-
-
-    <div class="connection-description">
-
-      GitHub Pages から Apps Script に<br>
-
-      テストデータを送信します。
-
-    </div>
-
+    <!-- マイク -->
 
     <button
-      id="connectionButton"
+      id="micButton"
       type="button"
-      onclick="testConnection()"
+      onclick="startRecognition()"
     >
-
-      🔗 接続テスト
-
+      🎤<br>
+      話す
     </button>
 
 
-    <div id="connectionResult"></div>
+    <div id="status">
+      例：1番、2番、3番、4番、5番
+    </div>
+
+
+    <!-- 認識結果 -->
+
+    <div class="result-area">
+
+      <div class="result-title">
+        認識結果
+      </div>
+
+      <textarea
+        id="recognizedText"
+        placeholder="ここに認識結果が表示されます"
+        oninput="updateGoButton()"
+      ></textarea>
+
+      <div class="hint">
+        認識が違っていた場合は、ここで直接修正できます。
+      </div>
+
+    </div>
+
+
+    <!-- Apps Scriptへ -->
+
+    <button
+      id="goButton"
+      type="button"
+      onclick="goToAppsScript()"
+      disabled
+    >
+      📋 提出物チェックへ進む
+    </button>
+
+
+    <button
+      id="retryButton"
+      type="button"
+      onclick="retryRecognition()"
+    >
+      ↻ もう一度話す
+    </button>
+
+
+    <div id="error"></div>
 
   </div>
-
 
 </div>
 
@@ -403,7 +381,6 @@
 
   const GAS_URL =
     "https://script.google.com/a/macros/tuhw-h.ed.jp/s/AKfycbwj1wz1TflZapmLS3BplXIH_ZQsCZ3P78SS0erMoJJYdPJM96JTfA4_Izn8DH6zM3T1/exec";
-
 
 
   // =========================================================
@@ -426,7 +403,7 @@
     if (!SpeechRecognition) {
 
       showError(
-        "このブラウザは音声認識に対応していません。\n" +
+        "このブラウザでは音声認識を利用できません。\n" +
         "Google Chromeで開いてください。"
       );
 
@@ -479,14 +456,15 @@
 
 
           status.textContent =
-            "話してください…";
+            "番号を話してください…";
+
         };
 
 
       recognition.onresult =
         function (event) {
 
-          const transcript =
+          const text =
             event
               .results[0][0]
               .transcript;
@@ -494,14 +472,18 @@
 
           document
             .getElementById(
-              "result"
+              "recognizedText"
             )
-            .textContent =
-              transcript;
+            .value =
+              text;
 
 
           status.textContent =
             "認識できました！";
+
+
+          updateGoButton();
+
         };
 
 
@@ -515,7 +497,8 @@
 
 
           let message =
-            "音声認識エラー：" +
+            "音声認識に失敗しました。\n" +
+            "エラー：" +
             event.error;
 
 
@@ -526,7 +509,7 @@
 
             message =
               "マイクの使用が許可されていません。\n" +
-              "Chromeのマイク設定を確認してください。";
+              "Chromeの設定でマイクを許可してください。";
 
           }
 
@@ -546,6 +529,7 @@
           showError(
             message
           );
+
         };
 
 
@@ -561,6 +545,7 @@
 
           button.innerHTML =
             "🎤<br>話す";
+
         };
 
 
@@ -586,41 +571,143 @@
 
 
   // =========================================================
-  // エラー表示
+  // 「提出物チェックへ進む」ボタン
   // =========================================================
 
-  function showError(message) {
+  function updateGoButton() {
 
-    const errorBox =
-      document.getElementById(
-        "error"
-      );
+    const text =
+      document
+        .getElementById(
+          "recognizedText"
+        )
+        .value
+        .trim();
 
 
-    errorBox.textContent =
-      message;
-
-
-    errorBox.style.display =
-      "block";
+    document
+      .getElementById(
+        "goButton"
+      )
+      .disabled =
+        text === "";
 
   }
 
 
 
-  function hideError() {
+  // =========================================================
+  // Apps Scriptへ移動
+  // =========================================================
 
-    const errorBox =
+  function goToAppsScript() {
+
+    hideError();
+
+
+    const text =
+      document
+        .getElementById(
+          "recognizedText"
+        )
+        .value
+        .trim();
+
+
+    if (!text) {
+
+      showError(
+        "出席番号が入力されていません。"
+      );
+
+      return;
+    }
+
+
+    const url =
+      GAS_URL +
+      "?spoken=" +
+      encodeURIComponent(
+        text
+      );
+
+
+    window.location.href =
+      url;
+
+  }
+
+
+
+  // =========================================================
+  // やり直し
+  // =========================================================
+
+  function retryRecognition() {
+
+    document
+      .getElementById(
+        "recognizedText"
+      )
+      .value =
+        "";
+
+
+    document
+      .getElementById(
+        "status"
+      )
+      .textContent =
+        "例：1番、2番、3番、4番、5番";
+
+
+    updateGoButton();
+
+
+    hideError();
+
+
+    startRecognition();
+
+  }
+
+
+
+  // =========================================================
+  // エラー
+  // =========================================================
+
+  function showError(message) {
+
+    const error =
       document.getElementById(
         "error"
       );
 
 
-    errorBox.textContent =
+    error.textContent =
+      message;
+
+
+    error.style.display =
+      "block";
+
+  }
+
+
+  function hideError() {
+
+    const error =
+      document.getElementById(
+        "error"
+      );
+
+
+    error.textContent =
       "";
 
 
-    errorBox.style.display =
+    error.style.display =
       "none";
 
   }
@@ -628,205 +715,7 @@
 
 
   // =========================================================
-  // Apps Script 接続テスト
-  // =========================================================
-
-  async function testConnection() {
-
-    const button =
-      document.getElementById(
-        "connectionButton"
-      );
-
-
-    const resultBox =
-      document.getElementById(
-        "connectionResult"
-      );
-
-
-    button.disabled =
-      true;
-
-
-    button.textContent =
-      "接続中…";
-
-
-    resultBox.style.display =
-      "block";
-
-
-    resultBox.className =
-      "";
-
-
-    resultBox.textContent =
-      "Apps Scriptへ送信しています…";
-
-
-    try {
-
-      const sendData = {
-
-        action:
-          "connectionTest",
-
-        message:
-          "GitHub Pagesからこんにちは！",
-
-        numbers:
-          [1, 2, 3]
-
-      };
-
-
-      console.log(
-        "送信データ:",
-        sendData
-      );
-
-
-      const response =
-        await fetch(
-          GAS_URL,
-          {
-
-            method:
-              "POST",
-
-            headers: {
-
-              "Content-Type":
-                "text/plain;charset=utf-8"
-
-            },
-
-            body:
-              JSON.stringify(
-                sendData
-              )
-
-          }
-        );
-
-
-      console.log(
-        "HTTP status:",
-        response.status
-      );
-
-
-      const text =
-        await response.text();
-
-
-      console.log(
-        "Apps Script応答:",
-        text
-      );
-
-
-      let data = null;
-
-
-      try {
-
-        data =
-          JSON.parse(
-            text
-          );
-
-      } catch (error) {
-
-        console.log(
-          "JSON変換できませんでした"
-        );
-
-      }
-
-
-      if (
-        response.ok &&
-        data &&
-        data.success === true
-      ) {
-
-        resultBox.className =
-          "success";
-
-
-        resultBox.textContent =
-          "🎉 接続成功！\n\n" +
-
-          "GitHub Pages\n" +
-          "　↓\n" +
-          "Apps Script\n" +
-          "　↓\n" +
-          "通信できました！\n\n" +
-
-          "Apps Scriptからの返事：\n" +
-
-          data.message;
-
-      } else {
-
-        resultBox.className =
-          "failure";
-
-
-        resultBox.textContent =
-          "Apps Scriptから応答はありましたが、\n" +
-          "期待した結果ではありません。\n\n" +
-
-          "HTTP：" +
-          response.status +
-          "\n\n" +
-
-          text;
-
-      }
-
-
-    } catch (error) {
-
-      console.error(
-        "接続エラー:",
-        error
-      );
-
-
-      resultBox.className =
-        "failure";
-
-
-      resultBox.textContent =
-        "⚠️ 接続テストでエラーが発生しました。\n\n" +
-
-        "エラー内容：\n" +
-
-        error.message +
-
-        "\n\n" +
-
-        "※ Apps Scriptまで送信できていても、" +
-        "ブラウザ側で返事を読み取れない場合があります。";
-
-    }
-
-
-    button.disabled =
-      false;
-
-
-    button.textContent =
-      "🔗 接続テスト";
-
-  }
-
-
-  // =========================================================
-  // JavaScriptが正常に読み込まれたことを確認
+  // 起動確認
   // =========================================================
 
   window.addEventListener(
@@ -834,8 +723,10 @@
     function () {
 
       console.log(
-        "提出物音声チェック：JavaScript読み込み成功"
+        "提出物音声チェック 起動成功"
       );
+
+      updateGoButton();
 
     }
   );
